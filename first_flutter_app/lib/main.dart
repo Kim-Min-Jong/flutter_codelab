@@ -83,6 +83,12 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(pair.asLowerCase);
+    // Padding 생성
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(pair.asLowerCase),
+      ),
+    );
   }
 }
