@@ -54,20 +54,25 @@ class MyHomePage extends StatelessWidget {
     var pair = appState.current;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Text('A random idea:'),
-          // WordPair는 asPascalCase 또는 asSnakeCase 등 여러 유용한 getter를 제공
-          BigCard(pair: pair),
-
-          ElevatedButton(
-            onPressed: () {
-              // 버튼 눌렀을 때마다다 새로운 WordPair를 생성
-              appState.getNext();
-            }, 
-            child: Text("Next")
-          )
-        ],
+      body: Center(
+        child: Column(
+          // 중앙 정렬
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('A random idea:'),
+            // WordPair는 asPascalCase 또는 asSnakeCase 등 여러 유용한 getter를 제공
+            BigCard(pair: pair),
+            // 카드와 버튼 사이의 간격 제공공
+            SizedBox(height: 10,),
+            ElevatedButton(
+              onPressed: () {
+                // 버튼 눌렀을 때마다다 새로운 WordPair를 생성
+                appState.getNext();
+              }, 
+              child: Text("Next")
+            )
+          ],
+        ),
       ),
     );
   }
