@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../kotlin/algorithm"
+		},
+		{
+			"path": "../../YoutubeMusicExtractor_Android/server"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
