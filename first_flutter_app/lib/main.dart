@@ -50,13 +50,15 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // watch 메서드를 사용하여 앱의 현재 상태에 관한 변경사항을 추적
     var appState = context.watch<MyAppState>();
+    // 전역 상태 방지
+    var pair = appState.current;
 
     return Scaffold(
       body: Column(
         children: [
           Text('A random idea:'),
           // WordPair는 asPascalCase 또는 asSnakeCase 등 여러 유용한 getter를 제공
-          Text(appState.current.asLowerCase),
+          BigCard(pair: pair),
 
           ElevatedButton(
             onPressed: () {
@@ -68,5 +70,19 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class BigCard extends StatelessWidget {
+  const BigCard({
+    super.key,
+    required this.pair,
+  });
+
+  final WordPair pair;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(pair.asLowerCase);
   }
 }
