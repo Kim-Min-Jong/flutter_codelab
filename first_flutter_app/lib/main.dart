@@ -35,6 +35,13 @@ class MyApp extends StatelessWidget {
 // 상태가 만들어지고 ChangeNotifierProvider를 사용하여 전체 앱에 제공
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
+
+  void getNext() {
+    // 임의의 새 WordPair를 current에 재할당
+    current = WordPair.random();
+    // MyAppState를 보고 있는 사람에게 알림을 보내는 notifyListeners()(ChangeNotifier)의 메서드)를 호출
+    notifyListeners();
+  }
 }
 
 // 상태를 가진 보여줄 화면면
@@ -53,7 +60,8 @@ class MyHomePage extends StatelessWidget {
 
           ElevatedButton(
             onPressed: () {
-              print("button pressed");
+              // 버튼 눌렀을 때마다다 새로운 WordPair를 생성
+              appState.getNext();
             }, 
             child: Text("Next")
           )
