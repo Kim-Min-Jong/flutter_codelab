@@ -68,6 +68,13 @@ class MyHomePage extends StatelessWidget {
     // 전역 상태 방지
     var pair = appState.current;
 
+    IconData icon;
+    if (appState.favorites.contains(pair)) {
+      icon = Icons.favorite;
+    } else {
+      icon = Icons.favorite_border;
+    }
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -79,12 +86,26 @@ class MyHomePage extends StatelessWidget {
             BigCard(pair: pair),
             // 카드와 버튼 사이의 간격 제공공
             SizedBox(height: 10,),
-            ElevatedButton(
-              onPressed: () {
-                // 버튼 눌렀을 때마다다 새로운 WordPair를 생성
-                appState.getNext();
-              }, 
-              child: Text("Next")
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // 버튼 추가
+                ElevatedButton.icon(
+                  onPressed: () {
+                    appState.toggleFavorites();
+                  },
+                  icon: Icon(icon),
+                  label: Text('Like'),
+                ),
+
+                ElevatedButton(
+                  onPressed: () {
+                    // 버튼 눌렀을 때마다다 새로운 WordPair를 생성
+                    appState.getNext();
+                  }, 
+                  child: Text("Next")
+                ),
+              ],
             )
           ],
         ),
