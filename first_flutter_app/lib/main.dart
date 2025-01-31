@@ -42,6 +42,21 @@ class MyAppState extends ChangeNotifier {
     // MyAppState를 보고 있는 사람에게 알림을 보내는 notifyListeners()(ChangeNotifier)의 메서드)를 호출
     notifyListeners();
   }
+
+  // 좋아요 클릭 리스트
+  var favorites = <WordPair>[];
+  
+  // 토글이벤트
+  void toggleFavorites() {
+    // 리스트의 포함 여부에 따라 동작
+    if (favorites.contains(current)) {
+      favorites.remove(current);
+    } else {
+      favorites.add(current);
+    }
+    // 리스트 동작 후 이벤트 알리기기
+    notifyListeners();
+  }
 }
 
 // 상태를 가진 보여줄 화면면
