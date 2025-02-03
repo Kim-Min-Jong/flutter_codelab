@@ -60,9 +60,33 @@ class MyAppState extends ChangeNotifier {
 }
 
 // 탐색 레일을 가진 상위 화면
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+// 많은 상태를 담기 위한 상태 클래스
+// Widget에서 상태를 담으면 너무 무거워짐짐
+class _MyHomePageState extends State<MyHomePage> {
+
+  var selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+
+    // 페이지 전환을 위한 변수
+    Widget page;
+    switch(selectedIndex) {
+      case 0:
+        page = GeneratorPage();
+        break;
+      case 1:
+        page = Placeholder();
+        break;
+      default:
+        throw UnimplementedError("no widget for $selectedIndex");
+    }
+
     return Scaffold(
       body: Row(
         children: [
@@ -82,17 +106,22 @@ class MyHomePage extends StatelessWidget {
                   label: Text('Favorites'),
                 ),
               ],
-              selectedIndex: 0,
+              // 선택된 레일
+              selectedIndex: selectedIndex,
+              // 네비게이션 레일을 선택할 때 발생하는 벤트트
               onDestinationSelected: (value) {
-                print('selected: $value');
+                setState(() {
+                  // 선택된 레일의 인덱스를 저장장
+                  selectedIndex = value;
+                });
               },
             ),
           ),
           Expanded(
             child: Container(
               color: Theme.of(context).colorScheme.primaryContainer,
-              // 네비게이션 하위 상세 페이지지
-              child: GeneratorPage(),
+              // 네비게이션 하위 상세 페이지
+              child: page,
             ),
           ),
         ],
