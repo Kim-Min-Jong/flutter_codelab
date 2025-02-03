@@ -87,45 +87,50 @@ class _MyHomePageState extends State<MyHomePage> {
         throw UnimplementedError("no widget for $selectedIndex");
     }
 
-    return Scaffold(
-      body: Row(
-        children: [
-          // 하위 요소가 하드웨어 노치나 상태 표시줄로 가려지지 않도록 하는 위젯
-          SafeArea(
-            // NavigationRail를 래핑하여 탐색 버튼이 휴대기기 상태 표시줄로 가려지지 않도록함함
-            child: NavigationRail(
-              extended: false,
-              // 네비게이션의 도착지 정의의
-              destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
+          // 사사용할 수 있는 공간의 양에 따라 위젯 트리를 변경할 수
+    return LayoutBuilder(
+      builder: (context, constraint) {
+        return Scaffold(
+          body: Row(
+            children: [
+              // 하위 요소가 하드웨어 노치나 상태 표시줄로 가려지지 않도록 하는 위젯
+              SafeArea(
+                // NavigationRail를 래핑하여 탐색 버튼이 휴대기기 상태 표시줄로 가려지지 않도록함함
+                child: NavigationRail(
+                  extended: constraint.maxWidth >= 600,
+                  // 네비게이션의 도착지 정의의
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: Icon(Icons.home),
+                      label: Text('Home'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.favorite),
+                      label: Text('Favorites'),
+                    ),
+                  ],
+                  // 선택된 레일
+                  selectedIndex: selectedIndex,
+                  // 네비게이션 레일을 선택할 때 발생하는 이벤트트
+                  onDestinationSelected: (value) {
+                    setState(() {
+                      // 선택된 레일의 인덱스를 저장장
+                      selectedIndex = value;
+                    });
+                  },
                 ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.favorite),
-                  label: Text('Favorites'),
+              ),
+              Expanded(
+                child: Container(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  // 네비게이션 하위 상세 페이지
+                  child: page,
                 ),
-              ],
-              // 선택된 레일
-              selectedIndex: selectedIndex,
-              // 네비게이션 레일을 선택할 때 발생하는 벤트트
-              onDestinationSelected: (value) {
-                setState(() {
-                  // 선택된 레일의 인덱스를 저장장
-                  selectedIndex = value;
-                });
-              },
-            ),
+              ),
+            ],
           ),
-          Expanded(
-            child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              // 네비게이션 하위 상세 페이지
-              child: page,
-            ),
-          ),
-        ],
-      ),
+        );
+      }
     );
   }
 }
