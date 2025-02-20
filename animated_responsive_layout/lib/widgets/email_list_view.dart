@@ -3,7 +3,7 @@ import 'package:flutter/material.dart'; // 플러터 내장 패키지를 가졍�
 // 프로젝트 내 파일 가져옴
 import '../../models/data.dart' as data;
 import '../../models/models.dart';
-import '../email_widget.dart';
+import './email_widget.dart';
 import '../search_bar.dart' as search_bar;
 
 class EmailListView extends StatelessWidget {
